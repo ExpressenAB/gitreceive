@@ -149,6 +149,10 @@ main() {
 
     # Called by the 'forced command' when the git user first authenticates against the server
     run)
+      if [ -z ${SSH_ORIGINAL_COMMAND+x} ]; then
+        echo "ERROR: Arbitrary ssh prohibited!"
+        exit 1
+      fi
       declare user="$2" fingerprint="$3"
       export RECEIVE_USER="$user"
       export RECEIVE_FINGERPRINT="$fingerprint"
